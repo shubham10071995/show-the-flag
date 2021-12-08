@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>conries flag</title>
+    <style>
+      div > p {
+        background-color: aqua;
+      }
+    </style>
+</head>
+<h1 id='head'>SEE THE FLAG</h1>
+<p id='display'></p>
+<p id='error'></p>
+<body>
+    <script>
+
+const req = new XMLHttpRequest();
+
+
+req.addEventListener('readystatechange' ,(e) => {
+if(e.target.readyState == 4){
+  if(e.target.status == 200){
+
+    let countries = JSON.parse(e.target.responseText);
+    console.log(countries);
+    // document.getElementById('display').innerHTML = jso[0].flag;
+
+    countries.forEach((country) => {
+      const p = document.createElement('p');
+    p.innerHTML = country.flag;
+    document.getElementById('display').appendChild(p);
+
+    });
+
+  }
+  else{
+      document.getElementById('error').innerHTML = 'API error';
+  }
+}
+} );
+
+
+
+req.open('GET' , 'https://restcountries.com/v3.1/all');
+
+req.send();
+
+
+
+
+
+    //  const req = new XMLHttpRequest();
+    //  req.addEventListener('readystatechange' , (e) => {
+        
+    //     if(e.target.readyState == 4) {
+    //         // console.log(e.target.responseText);
+    //         let jso = JSON.parse(e.target.responseText);
+    //         document.getElementById('display').innerHTML = jso.puzzle;
+    //     }
+    //  })
+    //  req.open( 'GET' , 'http://puzzle.mead.io/puzzle');
+    //  req.send();
+
+    </script>
+</body>
+</html>
